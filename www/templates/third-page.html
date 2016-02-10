@@ -1,0 +1,29 @@
+<ion-view view-title="Healthy" name="Healthy">
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-android-search" ng-click="showFilterBar()">
+        </button>
+        <i class="icon ion-android-more-vertical" ng-click="showDetails()"></i>
+    </ion-nav-buttons>
+
+    <ion-content class="tab-content">
+        <div class="head-img">
+            <img src="img/third-tab-img.png" alt="">
+        </div>
+
+        <ion-list class="third-tab">
+            <ion-item class="item-remove-animate item-icon-right" collection-repeat="nouseful in nousefuls" type="item-text-wrap" href="#/main/nouseful/{{nouseful.id}}">
+                <h2>{{nouseful.title}}</h2>
+                <p>{{nouseful.description}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+
+        <ion-list ng-if="nousefuls !== undefined && !nousefuls.length" class="no-results">
+            <ion-item type="item-text-wrap" href="#">
+                <p>No Results</p>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

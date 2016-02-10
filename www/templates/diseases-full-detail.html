@@ -1,0 +1,30 @@
+<ion-view view-title="{{disease.title}}">
+
+    <ion-nav-buttons side="secondary">
+        <i class="icon ion-android-more-vertical" ng-click="showDetails()"></i>
+    </ion-nav-buttons>
+
+
+    <ion-content class="deseaseDetails">
+        <ion-list>
+            <div class="image">
+                <div class="title">{{ fullInfo.title }}</div>
+                <img src="{{fullInfo.img}}" alt="">
+            </div>
+            <div class="accordion" ng-repeat="group in groups">
+                <ion-item class="item-stable"
+                          ng-click="toggleGroup(group)"
+                          ng-class="{active: isGroupShown(group)}">
+                    &nbsp;
+                    {{group.name}}
+
+                    <i class="icon" ng-class="isGroupShown(group) ? 'ion-arrow-up-b' : 'ion-arrow-down-b'"></i>
+                </ion-item>
+                <ion-item class="item-accordion"
+                          ng-show="isGroupShown(group)">
+                    {{group.item}}
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

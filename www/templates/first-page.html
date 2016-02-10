@@ -1,0 +1,30 @@
+<ion-view view-title="Healthy" name="Healthy">
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-android-search" ng-click="showFilterBar()">
+        </button>
+        <i class="icon ion-android-more-vertical" ng-click="showDetails()"></i>
+    </ion-nav-buttons>
+
+    <ion-content class="tab-content">
+        <div class="head-img">
+            <img src="img/first-tab-img.png" alt="">
+            <div class="text">Les bienfaits du raisin</div>
+        </div>
+
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="tip in tips" type="item-text-wrap" href="#" ng-click="{{tip.click}}">
+                <h2>{{tip.title}}</h2>
+                <p>{{tip.description}}</p>
+                <img ng-src="{{tip.img}}">
+            </ion-item>
+        </ion-list>
+
+        <ion-list ng-if="tips !== undefined && !tips.length" class="no-results">
+            <ion-item type="item-text-wrap" href="#">
+                <p>No Results</p>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

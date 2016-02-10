@@ -1,0 +1,23 @@
+<ion-view view-title="{{disease.title}}">
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-android-search" ng-click="showFilterBar()">
+        </button>
+        <i class="icon ion-android-more-vertical" ng-click="showDetails()"></i>
+    </ion-nav-buttons>
+
+    <ion-content class="deseaseDetails">
+        <ion-list>
+            <ion-item collection-repeat="maladiesListDetali in maladiesListDetalis" type="item-text-wrap" href="#/main/diseases/{{disease.id}}/{{maladiesListDetali.id}}">
+                <p>{{ maladiesListDetali.title }}</p>
+            </ion-item>
+        </ion-list>
+
+        <ion-list ng-if="maladiesListDetalis !== undefined && !maladiesListDetalis.length" class="no-results">
+            <ion-item type="item-text-wrap" href="#">
+                <p>No Results</p>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

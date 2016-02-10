@@ -1,0 +1,957 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,100,100italic,300italic,400italic,500italic,700,700italic,900italic,900)
+
+$text-3-5: 3.5em
+$text-2-8: 2.8em
+$text-2-5: 2.5em
+
+$header-36: 2.3em
+$header-24: 1.5em
+
+$text-32: 2em
+$text-28: 1.8em
+$text-26: 1.7em
+$text-24: 1.5em
+$text-22: 1.3em
+$text-21: 1.25em
+$text-211: 1.27em
+$text-20: 1.2em
+$text-18: 1.1em
+$text-16: 1em
+$text-14: 0.9em
+$text-12: 0.7em
+$text-11: 0.6em
+
+
+input[type="text"]:-moz-placeholder
+	color: #0E48A9
+	font-size: $text-16
+	font-family: "Roboto-Medium"
+
+input[type="text"]::-moz-placeholder
+	color: #0E48A9
+	font-size: $text-16
+	font-family: "Roboto-Medium"
+
+input[type="text"]:-ms-input-placeholder
+	color: #0E48A9
+	font-size: $text-16
+	font-family: "Roboto-Medium"
+
+input[type="text"]::-webkit-input-placeholder
+	color: #0E48A9
+	font-size: $text-16
+	font-family: "Roboto-Medium"
+
+.ion-android-arrow-back
+	font-size: $text-20
+
+.popup-body
+	padding: 0 20px
+
+	span
+		color: rgba(0,0,0,.54)
+		font-size: 1em
+		font-family: "Roboto-Regular"
+
+.popup
+	.popup-buttons
+		.m-popup-buttons
+			color: #009688
+			text-transform: uppercase
+			font-family: "Roboto-Medium"
+			font-size: $text-14
+
+.main.nav-bar-container
+	.icon
+		color: #ffffff
+		font-size: $text-24
+		padding: 7px 0 0 10px
+
+		&.ion-android-search
+			&:before
+				font-size: $text-18
+
+		&.ion-android-more-vertical
+			padding: 7px 10px 5px 20px
+
+.ion-android-menu
+	display: block
+	&.hide-icon-menu
+		display: none
+
+.bar-stable
+	.button
+		color: #ffffff
+
+		&:hover
+			color: #ffffff
+
+.slider
+	height: 100%
+	text-align: center
+
+.scroll
+	height: 100%
+
+//Button close
+    position: absolute;
+    right: -100%;
+    height: 120%;
+    z-index: 10000;
+    top: -20%;
+    width: 100%;
+
+.button-closed
+	background: rgba(0,0,0,.7)
+	width: 100%
+	min-height: 100%
+	position: absolute
+	z-index: -100
+
+	&.activated
+		z-index: 100
+
+drawer
+	background-color: #fff
+	display: block
+	position: fixed
+	width: 70%
+	height: 100%
+	z-index: 100
+	left: -70%
+	transition: 0.4s all ease-in-out
+	transform: translate3d(0, 0, 0)
+
+drawer
+	&.opened
+		transform: translate3d(100%, 0, 0)
+
+drawer.animate
+	-webkit-transition: 0.4s all ease-in-out
+	transition: 0.4s all ease-in-out
+
+drawer.left
+	transform: translate3d(-100%, 0, 0)
+	box-shadow: 1px 0 10px rgba(0,0,0,0.3)
+
+drawer.right
+	right: 0
+	top: 0
+	-webkit-transform: translate3d(100%, 0, 0)
+	transform: translate3d(100%, 0, 0)
+	box-shadow: -1px 0px 10px rgba(0,0,0,0.3)
+
+drawer h2
+	color: #fff
+	margin-top: 40px !important
+	margin-left: 15px
+	font-weight: 200
+	.item
+		background: none
+		color: #fff
+	.item:first-child
+		border-top: 0
+	.item:last-child
+		border-bottom: 0
+
+.ng-hide
+	display: none
+
+.slider-pager
+	.slider-pager-page
+		color: #B6C903
+
+.in-partager
+	background: transparent url(../img/first-action-list-ico.png) no-repeat
+	width: 20px
+	height: 20px
+	margin: 11px 0 0 0
+
+.in-health-center
+	background: transparent url(../img/second-action-list-ico.png) no-repeat
+	width: 20px
+	height: 20px
+	margin: 11px 0 0 0
+
+.in-subscribe
+	background: transparent url(../img/third-action-list-ico.png) no-repeat
+	width: 20px
+	height: 20px
+	margin: 11px 0 0 0
+
+.platform-android
+	.action-sheet-group
+		background-color: #fafafa
+
+	.bar
+		.title
+			font-size: $text-20
+			line-height: $text-2-5
+
+	.action-sheet
+		.action-sheet-title
+			font-size: $text-20
+			font-family: "Roboto-Medium"
+			color: #000000
+
+.popup-head
+	border-bottom: none
+
+.popup-container
+	.popup
+		box-shadow: 0 0 10px 6px rgba(0,0,0,.5)
+		background-color: #ffffff
+
+.partagerAS
+
+	.action-sheet
+
+		.button
+			width: 33%
+			text-align: center
+			color: rgba(0,0,0,.54)
+			font-size: $text-12
+			float: left
+			padding: 0
+
+			.icon
+				width: 100%
+				height: 70px
+
+				&.google-ico
+					background: url(../img/gmail-ico.png) no-repeat 50% 30%
+					left: 0
+
+				&.hangout-ico
+					background: url(../img/hanguot-ico.png) no-repeat 50% 30%
+					left: 0
+
+				&.gplus-ico
+					background: url(../img/gplus-ico.png) no-repeat 50% 30%
+					left: 0
+
+				&.mail-ico
+					background: url(../img/mail-ico.png) no-repeat 50% 30%
+					left: 0
+
+				&.message-ico
+					background: url(../img/message-ico.png) no-repeat 50% 30%
+					left: 0
+
+				&.more-ico
+					background: url(../img/circles-ico.png) no-repeat 50% 30%
+					left: 0
+
+.slide
+	width: 100%
+	height: 100%
+
+	.header
+		font-size: $header-36
+		font-family: "Roboto-Regular"
+		color: #b6c903
+		top: 20%
+		position: relative
+
+	.description
+		color: #0e48a9
+		font-family: "Roboto-Light"
+		position: relative
+		font-size: $text-28
+		top: 55%
+		width: 70%
+		margin: 0 auto
+		line-height: 1em
+
+	&.first
+		background: #ffffff url(../img/bg-first-slide.png) no-repeat 90% 60%
+		background-size: 90%
+
+	&.second
+		background: #ffffff url(../img/bg-second-slide.png) no-repeat 90% 60%
+		background-size: 90%
+
+	&.third
+		background: #ffffff url(../img/bg-third-slide.png) no-repeat 90% 60%
+		background-size: 90%
+
+	&.fourth
+		background: #eee url(../img/bg-fourth-slide.png) no-repeat 50% 25%
+		background-size: 20%
+
+		.header
+			color: #0E48A9
+			top: 15%
+
+		.description
+			font-size: $text-18
+			top: 31%
+			line-height: $text-21
+
+			.button-round
+				border-radius: 50px
+				padding: 0 35%
+				top: 50px
+
+.sign-in
+	background: #B6C903
+	color: #fff
+	
+	.header
+		font-size: $header-36
+		font-family: "Roboto-Regular"
+		color: #ffffff
+		text-align: center
+		position: relative
+		top: 17%
+
+	.button-fb
+		background: #3A5896 url(../img/fb-ico.png) no-repeat 10% 50%
+		color: #ffffff
+		position: relative
+		border-radius: 50px
+		width: 85%
+		margin: 0 auto 10px auto
+		top: 20%
+		font-size: $text-18
+		font-family: "Roboto-Medium"
+
+		&.activated
+			background: #3A5896 - #222 url(../img/fb-ico.png) no-repeat 10% 50%
+
+	.deliver-row
+		top: 20%
+		position: relative
+		text-align: center
+
+		.deliver
+			border-bottom: 1px solid #fff
+			margin-bottom: 13px
+
+	form
+		position: relative
+		top: 17.4%
+
+		.list
+			&.name
+				top: 15px
+
+				.item
+					border: none
+					background: transparent
+					width: 90%
+					margin: 0 auto
+
+				.item-input-wrapper
+					border-radius: 50px
+					background: #fff
+
+					input
+						color: #0E48A9
+						font-size: $text-16
+						font-family: "Roboto-Medium"
+						height: 45px
+						line-height: $text-18
+						padding: 0 0 0 20px
+						border-radius: 50px
+						width: 100%
+
+			&.phone-number
+				top: 0
+
+				.item
+					border: none
+					background: transparent
+					width: 90%
+					margin: 0 auto
+
+				.item-input-wrapper
+					border-radius: 50px
+					background: #fff
+
+					input
+						color: #0E48A9
+						font-size: $text-16
+						font-family: "Roboto-Medium"
+						height: 45px
+						line-height: $text-18
+						padding: 0 0 0 20px
+						border-radius: 50px
+						width: 100%
+
+				.button-positive
+					background-color: #0E48A9
+					color: #ffffff
+					font-family: "Roboto-Medium"
+					font-size: $text-18
+					width: 85%
+					border-radius: 50em
+					margin: 15px 7.5% 0 7.5%
+
+
+	.register-link
+		position: relative
+		top: 20%
+		text-align: center
+		font-size: 1.3em
+		font-family: "Roboto-Medium"
+
+		a
+			color: #0E48A9
+
+.sign-up
+	background: #B6C903
+	color: #fff
+
+	form
+		top: 20%
+		position: relative
+
+	.header
+		font-size: $header-36
+		font-family: "Roboto-Regular"
+		color: #ffffff
+		text-align: center
+		position: relative
+		top: 16%
+
+	.button-fb
+		background: #3A5896 url(../img/fb-ico.png) no-repeat 10% 50%
+		color: #ffffff
+		position: relative
+		border-radius: 50px
+		width: 85%
+		margin: 0 auto 10px auto
+		top: 20%
+		font-size: $text-18
+		font-family: "Roboto-Medium"
+
+		&.activated
+			background: #3A5896 - #222 url(../img/fb-ico.png) no-repeat 10% 50%
+
+	.deliver-row
+		top: 20%
+		position: relative
+		text-align: center
+
+		.deliver
+			border-bottom: 1px solid #fff
+			margin-bottom: 13px
+
+	.list
+		&.name
+			top: 20.8%
+
+			.item
+				border: none
+				background: transparent
+				width: 90%
+				margin: 0 auto
+
+			.item-input-wrapper
+				border-radius: 50px
+				background: #fff
+
+				input
+					color: #0E48A9
+					font-size: $text-16
+					font-family: "Roboto-Medium"
+					height: 45px
+					line-height: $text-18
+					padding: 0 0 0 20px
+					border-radius: 50px
+					width: 100%
+
+		&.sexDate
+			top: 20%
+
+			.date
+				float: left
+				.item
+					height: 45px
+					padding: 0
+					border-radius: 50px
+					width: 80%
+					margin-left: 15%
+					font-size: $text-16
+
+					select
+						max-width: 100%
+						color: #0E48A9
+						font-size: $text-16
+						font-family: "Roboto-Medium"
+
+			.sex
+				float: left
+
+				p
+					position: relative
+					font-size: $text-21
+					color: #0E48A9
+					font-family: "Roboto-Medium"
+					padding: 0 0 0 23%
+					margin: -2% 0 0 0
+
+				label
+					&.item
+						border: none
+						background: none
+						width: 50%
+						float: left
+						padding: 0
+						font-size: 20px
+						font-family: "Roboto-Medium"
+						color: #ffffff
+
+				.radio
+					vertical-align: top
+					margin: 0 3px 0 0
+					width: 17px
+					height: 17px
+
+				.radio + label
+					cursor: pointer
+
+				.radio:not(checked)
+					position: absolute
+					opacity: 0
+
+				.radio:not(checked) + label
+					position: relative
+					padding: 0 0 0 30px
+
+
+				.radio:not(checked) + label:before
+					content: ''
+					position: absolute
+					top: 4px
+					left: 0
+					width: 20px
+					height: 20px
+					border-radius: 13px
+					border: 2px solid rgba(1,1,1,.5)
+
+
+				.radio:not(checked) + label:after
+					content: ''
+					position: absolute
+					top: 6px
+					left: 2px
+					width: 16px
+					height: 16px
+					border-radius: 10px
+					background: #B6C903
+					transition: all .2s
+
+				.radio:checked + label:before
+					background: #B6C903
+					border: 2px solid #009688
+
+
+				.radio:focus + label:after
+					content: ''
+					position: absolute
+					top: 7px
+					left: 3px
+					width: 14px
+					height: 14px
+					border-radius: 10px
+					background: #009688
+					z-index: 100
+					transition: all .2s
+
+
+
+		&.phone-number
+			top: 22%
+
+			.item
+				border: none
+				background: transparent
+				width: 90%
+				margin: 0 auto
+
+			.item-input-wrapper
+				border-radius: 50px
+				background: #fff
+
+				input
+					color: #0E48A9
+					font-size: $text-16
+					font-family: "Roboto-Medium"
+					height: 45px
+					line-height: $text-18
+					padding: 0 0 0 20px
+					border-radius: 50px
+					width: 100%
+
+			.button-positive
+				background-color: #0E48A9
+				color: #ffffff
+				font-family: "Roboto-Medium"
+				font-size: $text-21
+				width: 85%
+				border-radius: 50px
+				margin: 20px 7.5% 0 7.5%
+
+	.register-link
+		position: relative
+		top: 22%
+		text-align: center
+		font-size: $text-21
+		font-family: "Roboto-Medium"
+
+		a
+			color: #0E48A9
+
+.bar
+	&.bar-stable
+		background-color: #B6C903 !important
+
+.main
+	&.bar
+		&.bar-stable
+			background-color: #B6C903
+
+			button
+				color: #ffffff
+				padding: 1px 0 0 10px
+
+			.title
+				color: #ffffff
+				left: 46px !important
+
+	&.tabs-striped.tabs-positive
+
+		.tabs
+			background-color: #fff
+			height: 39px
+			box-shadow: 0 0 8px -1px #bcbcbc
+
+			a
+				&.tab-item
+					line-height: $text-2-8
+					font-family: "Roboto-Medium"
+					font-size: $text-16
+					color: rgba(188,188,188,.7)
+					max-width: 100%
+
+					&.activated
+						border-bottom: 3px solid #0E48A9
+						color: #0e48a9
+
+					&.tab-item-active
+						border-bottom: 3px solid #0E48A9
+						color: #0e48a9
+
+
+	.tab-content
+		top: 41px
+		bottom: 35px
+
+		.head-img
+			width: 100%
+			position: relative
+
+			img
+				width: 100%
+
+			.text
+				position: absolute
+				bottom: 10%
+				left: 3%
+				color: #fff
+				font-size: $text-24
+				font-family: "Roboto-Regular"
+
+		.list
+			ion-item
+				border-top: none
+				top: -5px
+				border: none
+
+				.item-content
+					padding: 3% 0 3% 5%
+
+					h2
+						width: 70%
+						float: left
+						font-size: $text-16
+						font-family: "Roboto-Regular"
+						color: #B6C903
+
+					p
+						overflow: visible
+						white-space: normal
+						width: 65%
+						float: left
+						font-size: $text-14
+						color: #979797
+
+						a
+							color: #979797
+							text-decoration: none
+
+	.second-tab
+		.list
+			padding: 4% 15%
+
+			ion-item
+				border-left: none
+				border-right: none
+				border-top: none
+				border-bottom: 1px solid #ddd
+				width: 100%
+				margin: 1px 0 0 0
+				padding: 0
+
+				.item-content
+					padding: 3% 0
+
+				&:first-child
+					font-size: $text-16
+					font-family: "Roboto-Regular"
+					color: #B6C903
+					width: 100%
+					padding: 3% 0
+
+	.third-tab
+		.list
+			padding: 0
+
+			ion-item
+				border-left: none
+				border-right: none
+				border-top: none
+				border-bottom: 1px solid #ddd
+				width: 100%
+				margin: 1px 0 0 0
+				padding: 0
+
+				.item-content
+					padding: 2% 0 0 4%
+
+					h2
+						width: 75%
+
+					p
+						width: 75%
+
+	.nousefulDetails
+		top: 42px
+		bottom: 32px
+
+		ion-item
+			border-top: none
+			padding: 0 !important
+			border-bottom: 1px solid #bcbcbc
+			margin: 0
+
+			.item-content
+				padding: 3% 0 3% 5% !important
+
+				h2
+					width: 80% !important
+					white-space: normal !important
+
+				p
+					width: 80% !important
+					white-space: normal !important
+
+
+.deseaseDetails
+	top: 42px
+	bottom: 35px
+
+	.item
+		border-bottom: 1px solid rgba(0,0,0,.12)
+		margin: 1px 0 0 0
+		padding: 0 !important
+
+		a
+			&.item-content
+				padding: 3% 0 3% 5% !important
+
+				p
+					color: rgba(151,151,151,.87)
+					font-size: $text-16
+
+	.image
+		position: relative
+
+		.title
+			position: absolute
+			top: 85%
+			left: 3%
+			color: #fff
+			font-family: "Roboto-Regular"
+			font-size: $text-26
+			z-index: 10
+
+	img
+		width: 100%
+
+	.accordion
+		ion-item
+			top: -5px
+			color: #b6c903
+			font-size: $text-16
+			font-family: "Roboto-Regular"
+			padding: 20px 5px !important
+			background: #fff !important
+
+			&.item.active.item-stable
+				border-bottom: 1px solid transparent
+
+			&.item-accordion
+				color: #979797
+				font-size: $text-16
+				white-space: normal
+				line-height: $text-24
+				font-family: "Roboto-Regular"
+				padding: 0 10px 10px 10px !important
+
+			i.icon
+				float: right
+				margin-right: 10px
+				color: #D8D8D8
+
+.list
+	.item
+		&.item-accordion
+			line-height: 38px
+			padding-top: 0
+			padding-bottom: 0
+			transition: 0.09s all linear
+
+			.ng-hide
+				line-height: 0
+
+			&.ng-hide-add, .ng-hide-remove
+				display: block !important
+
+drawer
+	overflow-x: auto
+
+	.list
+		top: 0
+
+		ion-item
+			margin: -1px 0 0 0
+
+			.item-content
+				p
+					font-size: $text-11
+					color: #000000
+					font-family: "Roboto-Medium"
+					line-height: $text-16
+
+			border: none
+			min-height: 50px
+
+			&:first-child
+				.item-content
+					padding: 42px 0 0 5%
+					background-color: #2c49a4
+
+				.img
+					width: 100%
+					float: left
+
+					img
+						min-width: 100px
+						max-width: 100px
+						border-radius: 50px
+
+				.name
+					width: 100%
+					float: left
+					color: #ffffff
+					font-family: "Roboto-Regular"
+					font-size: $text-14
+					line-height: $text-16
+					text-transform: uppercase
+					padding: 20px 0
+
+			&:nth-of-type(2)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/1.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/1-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903
+
+			&:nth-of-type(3)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/2.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/2-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903
+
+			&:nth-of-type(4)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/3.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/3-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903
+
+
+			&:nth-of-type(5)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/third-action-list-ico.png) no-repeat 5% 50%
+					background-size: 8%
+
+					&.activated
+						background: url(../img/third-action-list-ico.png) no-repeat 5% 50%
+						background-size: 8%
+						p
+							color: #b6c903
+
+			&:nth-of-type(6)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/5.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/5-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903
+
+			&:nth-of-type(7)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/6.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/6-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903
+
+			&:nth-of-type(8)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/7.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/7-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903
+
+			&:nth-of-type(9)
+				.item-content
+					padding: 16px 10px 16px 50px
+					background: url(../img/left-menu/8.png) no-repeat 5% 50%
+
+					&.activated
+						background: url(../img/left-menu/8-active.png) no-repeat 5% 50%
+						p
+							color: #b6c903

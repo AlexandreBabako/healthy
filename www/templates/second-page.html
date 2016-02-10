@@ -1,0 +1,32 @@
+<ion-view view-title="Healthy" name="Healthy">
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-android-search" ng-click="showFilterBar()">
+        </button>
+        <i class="icon ion-android-more-vertical" ng-click="showDetails()"></i>
+    </ion-nav-buttons>
+
+    <ion-content class="tab-content">
+        <div class="head-img">
+            <img src="img/second-tab-img.png" alt="">
+        </div>
+
+        <ion-list class="second-tab">
+
+            <ion-item class="" type="item-text-wrap">
+                Liste par ordre alphabétique
+            </ion-item>
+
+            <ion-item collection-repeat="disease in diseases" type="item-text-wrap" href="#/main/diseases/{{disease.id}}">
+                <p>{{disease.title}}</p>
+            </ion-item>
+        </ion-list>
+
+        <ion-list ng-if="diseases !== undefined && !diseases.length" class="no-results">
+            <ion-item type="item-text-wrap" href="#">
+                <p>No Results</p>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>
