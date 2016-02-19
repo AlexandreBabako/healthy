@@ -1,4 +1,4 @@
-<ion-view view-title="{{nouseful.short}}" left-buttons="leftButtons">
+<ion-view view-title="Заголовок" left-buttons="leftButtons">
 
     <ion-nav-buttons side="secondary">
         <button class="button button-icon icon ion-android-search" ng-click="showFilterBar()">
@@ -9,10 +9,8 @@
     <ion-content class="nousefulDetails">
 
         <ion-list>
-            <ion-item collection-repeat="nousefulsDelail in nousefulsDelails" type="item-text-wrap" href="#/main/nouseful/{{ nouseful.id }}/{{ nousefulsDelail.id }}">
-                <h2>{{ nousefulsDelail.title }}</h2>
-                <p>{{ nousefulsDelail.description }}</p>
-                <p>Tél : <a href="tel:{{ nousefulsDelail.phone }}">{{ nousefulsDelail.phone }}</a></p>
+            <ion-item type="item-text-wrap" href="#/main/nouseful/">
+                <h2>Платный контент!</h2>
             </ion-item>
         </ion-list>
 

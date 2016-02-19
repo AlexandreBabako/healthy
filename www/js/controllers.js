@@ -2,11 +2,11 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
     .controller('SliderCtrl', function ($scope, $state) {
 
-        if (window.localStorage.getItem('name') != null){
+        if (window.localStorage.getItem('name') != null) {
             $state.go("main.tips");
         }
 
-        $scope.openLogin = function() {
+        $scope.openLogin = function () {
             $state.go("Login");
         }
 
@@ -25,13 +25,19 @@ angular.module('starter.controllers', ['ngOpenFB'])
                             params: {fields: 'id,name, age_range, gender, picture'}
                         }).then(
                             function (user) {
-                                $scope.data = {'fb_id': user.id,'login': user.name, 'age': user.age_range.min, 'sex': user.gender, 'picture': user.picture.data.url};
+                                $scope.data = {
+                                    'fb_id': user.id,
+                                    'login': user.name,
+                                    'age': user.age_range.min,
+                                    'sex': user.gender,
+                                    'picture': user.picture.data.url
+                                };
 
                                 var link = 'http://ct55373.tmweb.ru/buslik/healthyBack/loginFB.php';
 
-                                $http.get(link, {params: $scope.data}).then(function(resp) {
+                                $http.get(link, {params: $scope.data}).then(function (resp) {
                                     if (resp.data.success == null) {
-                                        $scope.erLogin = function() {
+                                        $scope.erLogin = function () {
                                             $ionicPopup.alert({
                                                 template: 'Email invalide ou le numéro de téléphone mobile.',
                                                 okText: 'Continuer',
@@ -45,16 +51,19 @@ angular.module('starter.controllers', ['ngOpenFB'])
                                     } else {
                                         $scope.data = {};
 
-                                        function saveUserData(name, picture) {
+                                        console.log(resp.data);
+
+                                        function saveUserData(name, picture, pay) {
                                             window.localStorage.setItem('name', name);
                                             window.localStorage.setItem('picture', picture);
+                                            window.localStorage.setItem('pay', pay);
                                         }
 
-                                        saveUserData(user.name, user.picture.data.url);
+                                        saveUserData(resp.data.login, resp.data.picture, resp.data.pay);
 
                                         $state.go("main.tips");
                                     }
-                                }, function(err) {
+                                }, function (err) {
                                     console.error('ERR', err);
                                     // err.status will contain the status code
                                 })
@@ -72,19 +81,19 @@ angular.module('starter.controllers', ['ngOpenFB'])
                 });
         };
 
-        $scope.openRegister = function() {
+        $scope.openRegister = function () {
             $state.go("Register");
         };
 
-        $scope.loginUser = function(data) {
+        $scope.loginUser = function (data) {
 
-            $scope.showLoading = function() {
+            $scope.showLoading = function () {
                 $ionicLoading.show();
             };
 
             $scope.showLoading();
 
-            $scope.hideLoading = function() {
+            $scope.hideLoading = function () {
                 $ionicLoading.hide();
             };
 
@@ -93,10 +102,10 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
                 var link = 'http://ct55373.tmweb.ru/buslik/healthyBack/login.php';
 
-                $http.get(link, {params: {'login': data.login, 'phone': data.phone}}).then(function(resp) {
+                $http.get(link, {params: {'login': data.login, 'phone': data.phone}}).then(function (resp) {
                     if (resp.data.success == null) {
                         $scope.hideLoading();
-                        $scope.erLogin = function() {
+                        $scope.erLogin = function () {
                             $ionicPopup.alert({
                                 template: 'Email invalide ou le numéro de téléphone mobile.',
                                 okText: 'Continuer',
@@ -111,23 +120,24 @@ angular.module('starter.controllers', ['ngOpenFB'])
                         $scope.data = {};
                         $scope.hideLoading();
 
-                        function saveUserData(name, picture) {
+                        function saveUserData(name, picture, pay) {
                             window.localStorage.setItem('name', name);
                             window.localStorage.setItem('picture', picture);
+                            window.localStorage.setItem('pay', pay);
                         }
 
-                        saveUserData(data.login, 'img/menu-avatar.png');
+                        saveUserData(resp.data.login, 'img/menu-avatar.png', resp.data.pay);
 
                         $state.go("main.tips");
                     }
-                }, function(err) {
+                }, function (err) {
                     console.error('ERR', err);
                     // err.status will contain the status code
                 })
 
             } else {
                 $scope.hideLoading();
-                $scope.erLogin = function() {
+                $scope.erLogin = function () {
                     $ionicPopup.alert({
                         template: 'Email invalide ou le numéro de téléphone mobile.',
                         okText: 'Continuer',
@@ -146,21 +156,21 @@ angular.module('starter.controllers', ['ngOpenFB'])
     })
 
     .controller('TipsCtrl', function ($scope, tips, $ionicLoading, $timeout, $ionicFilterBar) {
-        $scope.showLoading = function() {
+        $scope.showLoading = function () {
             $ionicLoading.show();
         };
 
-        $scope.hideLoading = function() {
+        $scope.hideLoading = function () {
             $ionicLoading.hide();
         };
 
         $scope.showLoading();
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.hideLoading();
         }, 1500);
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.tips = tips.all();
         }, 1501);
 
@@ -196,22 +206,29 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
     })
 
-    .controller('mainCtrl', function($scope, $location, $ionicSideMenuDelegate, $state, $ionicPopup, $rootScope, $timeout, $ionicActionSheet, $cordovaSocialSharing) {
-
+    .controller('mainCtrl', function ($parse, $scope, $location, $ionicSideMenuDelegate, $state, $ionicPopup, $rootScope, $timeout, $ionicActionSheet, $cordovaSocialSharing, $ionicHistory, $ionicNavBarDelegate) {
         //$scope.toggleLeftMenu = function() {
         //    $ionicSideMenuDelegate.toggleLeft();
         //};
         //
 
-        $scope.shareAnywhere = function() {
-            $cordovaSocialSharing.share('Message, subject, image and link', 'The subject', 'https://www.google.nl/images/srpr/logo4w.png', 'http://www.x-services.nl');
+        $scope.shareEmail = function () {
+            $cordovaSocialSharing.shareViaEmail('Message, subject, image and link', 'The subject', ['https://www.google.nl/images/srpr/logo.png'], ['http://www.x-services.nl'], [], null);
         };
 
-        $scope.shareSMS = function() {
-            $cordovaSocialSharing.shareViaSMS('My cool message', null /* see the note below */, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)});
+        $scope.shareSMS = function () {
+            $cordovaSocialSharing.shareViaSMS('My cool message http://google.com/', null /* see the note below */, function (msg) {
+                console.log('ok: ' + msg)
+            }, function (msg) {
+                alert('error: ' + msg)
+            });
         };
 
-        $scope.showDetails = function() {
+        $scope.OtherShare = function () {
+            $cordovaSocialSharing.share('My cool message http://google.com/', null, null, 'https://play.google.com/');
+        }
+
+        $scope.showDetails = function () {
             $ionicActionSheet.show({
                 buttons: [{
                     text: '<i class="icon in-partager"></i> Partager'
@@ -224,11 +241,11 @@ angular.module('starter.controllers', ['ngOpenFB'])
                     }
                 ],
 
-                buttonClicked: function(index){
+                buttonClicked: function (index) {
 
-                    if (index==0) {
+                    if (index == 0) {
 
-                        $scope.partagerActionSheet = function(){
+                        $scope.partagerActionSheet = function () {
                             $ionicActionSheet.show({
                                 cssClass: 'partagerAS',
                                 buttons: [
@@ -241,19 +258,29 @@ angular.module('starter.controllers', ['ngOpenFB'])
                                 ],
                                 titleText: 'Partager via',
                                 cancelText: 'Cancel',
-                                cancel: function() {
+                                cancel: function () {
                                     return false;
                                 },
-                                buttonClicked: function(index){
-                                    if (index==0) {
-                                        $scope.shareAnywhere();
-                                    }
-                                    if (index==1) {
-                                        console.log("index="+index);
+                                buttonClicked: function (index) {
+                                    if (index == 0) {
+                                        $scope.shareEmail();
                                         return true;
                                     }
-                                    if (index==4) {
+                                    if (index == 1) {
+                                        $scope.OtherShare();
+                                        return true;
+                                    }
+                                    if (index == 2) {
+                                        $scope.OtherShare();
+                                        return true;
+                                    }
+                                    if (index == 3) {
+                                        $scope.shareEmail();
+                                        return true;
+                                    }
+                                    if (index == 4) {
                                         $scope.shareSMS();
+                                        return true;
                                     }
                                 }
                             })
@@ -263,15 +290,15 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
                         return true;
                     }
-                    if (index==1) {
+                    if (index == 1) {
 
                         $location.path('main/nouseful/1');
 
                         return true;
                     }
-                    if (index==2) {
+                    if (index == 2) {
 
-                        $scope.SubscribeConfirm = function() {
+                        $scope.SubscribeConfirm = function () {
                             var SubscribeConfirm = $ionicPopup.confirm({
                                 template: 'Vous avez désiré souscrire au service « Plus d’Astuces ». Vous serez donc redirigé vers l’application Messages de votre téléphone pour achever votre souscription.',
                                 okText: 'ACCEPTER',
@@ -280,8 +307,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
                                 cancelType: 'button button-clear m-popup-buttons'
                             });
 
-                            SubscribeConfirm.then(function(res) {
-                                if(res) {
+                            SubscribeConfirm.then(function (res) {
+                                if (res) {
                                     console.log('Click CONTINUER');
                                 } else {
                                     console.log('Click REVENIR');
@@ -297,18 +324,18 @@ angular.module('starter.controllers', ['ngOpenFB'])
             });
         };
 
-        $scope.nousefulDet = function() {
-            $timeout(function() {
+        $scope.nousefulDet = function () {
+            $timeout(function () {
                 $state.go('main.nouseful');
             }, 1);
-            $timeout(function() {
+            $timeout(function () {
                 $state.go('main.nouseful-detail', {
                     nousefulId: 2
                 });
             }, 2);
         };
 
-        $scope.SubscribeConfirm = function() {
+        $scope.SubscribeConfirm = function () {
             var SubscribeConfirm = $ionicPopup.confirm({
                 template: 'Vous avez désiré souscrire au service « Plus d’Astuces ». Vous serez donc redirigé vers l’application Messages de votre téléphone pour achever votre souscription.',
                 okText: 'ACCEPTER',
@@ -317,8 +344,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
                 cancelType: 'button button-clear m-popup-buttons'
             });
 
-            SubscribeConfirm.then(function(res) {
-                if(res) {
+            SubscribeConfirm.then(function (res) {
+                if (res) {
                     console.log('Click CONTINUER');
                 } else {
                     console.log('Click REVENIR');
@@ -327,38 +354,85 @@ angular.module('starter.controllers', ['ngOpenFB'])
         };
 
 
-        $scope.$on('$stateChangeSuccess', function(){
+        $scope.$on('$stateChangeSuccess', function () {
             $scope.userName = window.localStorage.getItem('name');
             $scope.userPicture = window.localStorage.getItem('picture');
+            $scope.userPay = window.localStorage.getItem('pay');
         });
 
-        $scope.$on('$stateChangeSuccess', function(){
-            if ($location.path() === '/main/tips' || $location.path() === '/main/diseases' || $location.path() === '/main/nouseful'){
-                $scope.leftMenuShow = '';
+        $scope.mySplit = function (string) {
+            var arr = [];
+            arr = string.split('/');
+            return arr;
+        };
+
+        $scope.$on('$stateChangeSuccess', function () {
+            if ($location.path() === '/main/tips' || $location.path() === '/main/diseases' || $location.path() === '/main/nouseful') {
+                $timeout(function () {
+                    $scope.leftMenuShow = '';
+                }, 500);
             } else {
-                $scope.leftMenuShow = 'hide-icon-menu';
+                $timeout(function () {
+                    $scope.leftMenuShow = 'hide-icon-menu';
+                }, 500);
             }
+
+            if ($scope.mySplit($location.path())[2] == 'nouseful') {
+                if ($scope.mySplit($location.path())[4] != undefined) {
+                    if (window.localStorage.getItem('pay') == 0) {
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                        });
+                        $state.go('main.nouseful');
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                        });
+                        $ionicHistory.clearCache();
+                        $scope.SubscribeConfirm();
+                    }
+
+                }
+            }
+
+            if ($scope.mySplit($location.path())[2] == 'nouseful') {
+                if ($scope.mySplit($location.path())[3] == 2) {
+                    if (window.localStorage.getItem('pay') == 0) {
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                        });
+                        $state.go('main.nouseful');
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                        });
+                        $ionicHistory.clearCache();
+                        $scope.SubscribeConfirm();
+                    }
+
+                }
+            }
+
         });
 
         $scope.openedButtonClass = '';
         $scope.openedClass = 'closed';
 
-        $scope.openDrawer = function() {
+        $scope.openDrawer = function () {
             $scope.openedClass = 'opened';
             $scope.openedButtonClass = 'activated';
         };
 
-        $scope.closeDrawer = function() {
+        $scope.closeDrawer = function () {
             $scope.openedClass = 'closed';
             $scope.openedButtonClass = '';
         };
 
-        $scope.logOut = function() {
+        $scope.logOut = function () {
             $scope.closeDrawer();
             $scope.userName = '';
             $scope.userPicture = '';
             window.localStorage.removeItem('name');
             window.localStorage.removeItem('picture');
+            window.localStorage.removeItem('pay');
             $state.go('Login');
         };
 
@@ -401,15 +475,14 @@ angular.module('starter.controllers', ['ngOpenFB'])
         //};
         //
         //// END Filter part
-
     })
 
-    .controller('MainController', function($scope, $timeout, $ionicFilterBar){
+    .controller('MainController', function ($scope, $timeout, $ionicFilterBar) {
         // Filter part
 
         var filterBarInstance;
 
-        function getItems () {
+        function getItems() {
             var items = [];
             for (var x = 1; x < 2000; x++) {
                 items.push({text: 'This is item number ' + x + ' which is an ' + (x % 2 === 0 ? 'EVEN' : 'ODD') + ' number.'});
@@ -453,21 +526,21 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
     .controller('DiseasesCtrl', function ($scope, diseases, $ionicLoading, $timeout, $ionicFilterBar) {
 
-        $scope.showLoading = function() {
+        $scope.showLoading = function () {
             $ionicLoading.show();
         };
 
-        $scope.hideLoading = function() {
+        $scope.hideLoading = function () {
             $ionicLoading.hide();
         };
 
         $scope.showLoading();
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.hideLoading();
         }, 1500);
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.diseases = diseases.all();
         }, 1501);
 
@@ -506,21 +579,21 @@ angular.module('starter.controllers', ['ngOpenFB'])
     .controller('DiseasesDetailsCtrl', function ($scope, diseases, maladiesListDetails, $ionicLoading, $timeout, $stateParams, $ionicFilterBar) {
         $scope.disease = diseases.get($stateParams.diseasesId);
 
-        $scope.showLoading = function() {
+        $scope.showLoading = function () {
             $ionicLoading.show();
         };
 
-        $scope.hideLoading = function() {
+        $scope.hideLoading = function () {
             $ionicLoading.hide();
         };
 
         $scope.showLoading();
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.maladiesListDetalis = maladiesListDetails.get($stateParams.diseasesId);
         }, 1501);
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.hideLoading();
         }, 1500);
 
@@ -556,11 +629,11 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
     })
 
-    .controller('DiseasesFullCtrl', function($scope , diseases, maladiesListDetails, $ionicLoading, $timeout, $stateParams) {
+    .controller('DiseasesFullCtrl', function ($scope, diseases, maladiesListDetails, $ionicLoading, $timeout, $stateParams) {
 
         $scope.disease = diseases.get($stateParams.diseasesId);
 
-        $scope.fullInfo = maladiesListDetails.full($stateParams.diseasesId,$stateParams.diseasesfullId);
+        $scope.fullInfo = maladiesListDetails.full($stateParams.diseasesId, $stateParams.diseasesfullId);
 
         $scope.groups = [];
 
@@ -579,36 +652,36 @@ angular.module('starter.controllers', ['ngOpenFB'])
             item: $scope.fullInfo.prevent
         };
 
-        $scope.toggleGroup = function(group) {
+        $scope.toggleGroup = function (group) {
             if ($scope.isGroupShown(group)) {
                 $scope.shownGroup = null;
             } else {
                 $scope.shownGroup = group;
             }
         };
-        $scope.isGroupShown = function(group) {
+        $scope.isGroupShown = function (group) {
             return $scope.shownGroup === group;
         };
 
     })
 
-    .controller('NousefulCtrl', function ($scope, nousefuls, $ionicLoading, $timeout, $ionicFilterBar) {
+    .controller('NousefulCtrl', function ($scope, nousefuls, $ionicLoading, $timeout, $ionicFilterBar, $ionicHistory) {
 
-        $scope.showLoading = function() {
+        $scope.showLoading = function () {
             $ionicLoading.show();
         };
 
-        $scope.hideLoading = function() {
+        $scope.hideLoading = function () {
             $ionicLoading.hide();
         };
 
         $scope.showLoading();
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.hideLoading();
         }, 1500);
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.nousefuls = nousefuls.all();
         }, 1501);
 
@@ -644,29 +717,29 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
     })
 
-    .controller('NousefulDetailCtrl', function($scope, $ionicHistory, $stateParams, nousefuls, nousefulsDetails, $ionicPopup, $ionicLoading, $timeout, $ionicFilterBar) {
+    .controller('NousefulDetailCtrl', function ($scope, $ionicHistory, $stateParams, nousefuls, nousefulsDetails, $ionicPopup, $ionicLoading, $timeout, $ionicFilterBar) {
 
-        $scope.myGoBack = function() {
+        $scope.myGoBack = function () {
             $ionicHistory.goBack();
         };
 
         $scope.nouseful = nousefuls.get($stateParams.nousefulId);
 
-        $scope.showLoading = function() {
+        $scope.showLoading = function () {
             $ionicLoading.show();
         };
 
-        $scope.hideLoading = function() {
+        $scope.hideLoading = function () {
             $ionicLoading.hide();
         };
 
         $scope.showLoading();
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.hideLoading();
         }, 1500);
 
-        $timeout(function() {
+        $timeout(function () {
             $scope.nousefulsDelails = nousefulsDetails.get(nousefuls.get($stateParams.nousefulId)['id']);
         }, 1501);
 
@@ -700,7 +773,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
         // END Filter part
 
-        $scope.NousefulConfirm = function() {
+        $scope.NousefulConfirm = function () {
             var NousefulConfirm = $ionicPopup.confirm({
                 template: 'Pour accéder aux Pharmacies de garde, vous devez souscrire au 712. Vous serez donc redirigé vers l’application Appel de votre téléphone pour achever votre souscription.',
                 okText: 'CONTINUER',
@@ -709,8 +782,8 @@ angular.module('starter.controllers', ['ngOpenFB'])
                 cancelType: 'button button-clear m-popup-buttons'
             });
 
-            NousefulConfirm.then(function(res) {
-                if(res) {
+            NousefulConfirm.then(function (res) {
+                if (res) {
                     console.log('Click CONTINUER');
                 } else {
                     console.log('Click REVENIR');
@@ -720,16 +793,20 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
     })
 
-    .controller('RegisterCtrl', function($scope, $state, $ionicModal, $ionicPopup, $http, $ionicLoading, ngFB) {
-        $scope.openLogin = function() {
+    .controller('NousefulFullCtrl', function ($scope, $ionicHistory, $stateParams, nousefuls, nousefulsDetails, $ionicPopup, $ionicLoading, $timeout, $ionicFilterBar) {
+
+    })
+
+    .controller('RegisterCtrl', function ($scope, $state, $ionicModal, $ionicPopup, $http, $ionicLoading, ngFB) {
+        $scope.openLogin = function () {
             $state.go("Login");
         };
 
-        $scope.hideLoading = function() {
+        $scope.hideLoading = function () {
             $ionicLoading.hide();
         };
 
-        $scope.showLoading = function() {
+        $scope.showLoading = function () {
             $ionicLoading.show();
         };
 
@@ -743,9 +820,10 @@ angular.module('starter.controllers', ['ngOpenFB'])
             });
 
             end = end - 1;
-        };
+        }
+        ;
 
-        $scope.registerUser = function(data) {
+        $scope.registerUser = function (data) {
 
             $scope.showLoading();
 
@@ -754,7 +832,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
                 if (data.login == null || data.phone == null || data.age == null || data.sex == null) {
                     $scope.hideLoading();
-                    $scope.erLogin = function() {
+                    $scope.erLogin = function () {
                         $ionicPopup.alert({
                             template: 'Email invalide ou le numéro de téléphone mobile.',
                             okText: 'Continuer',
@@ -770,11 +848,11 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
                     var link = 'http://ct55373.tmweb.ru/buslik/healthyBack/register.php';
 
-                    $http.get(link, {params: $scope.data}).then(function(resp) {
+                    $http.get(link, {params: $scope.data}).then(function (resp) {
 
                         if (resp.data.success == 0) {
                             $scope.hideLoading();
-                            $scope.erLogin = function() {
+                            $scope.erLogin = function () {
                                 $ionicPopup.alert({
                                     template: 'Email invalide ou le numéro de téléphone mobile.',
                                     okText: 'Continuer',
@@ -790,7 +868,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
                             $scope.hideLoading();
                             $state.go("main.tips");
                         }
-                    }, function(err) {
+                    }, function (err) {
                         console.error('ERR', err);
                         // err.status will contain the status code
                     })
@@ -799,7 +877,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
             } else {
                 $scope.hideLoading();
-                $scope.erLogin = function() {
+                $scope.erLogin = function () {
                     $ionicPopup.alert({
                         template: 'Email invalide ou le numéro de téléphone mobile.',
                         okText: 'Continuer',
@@ -823,13 +901,19 @@ angular.module('starter.controllers', ['ngOpenFB'])
                             params: {fields: 'id,name, age_range, gender, picture'}
                         }).then(
                             function (user) {
-                                $scope.data = {'fb_id': user.id,'login': user.name, 'age': user.age_range.min, 'sex': user.gender, 'picture': user.picture.data.url};
+                                $scope.data = {
+                                    'fb_id': user.id,
+                                    'login': user.name,
+                                    'age': user.age_range.min,
+                                    'sex': user.gender,
+                                    'picture': user.picture.data.url
+                                };
 
                                 var link = 'http://ct55373.tmweb.ru/buslik/healthyBack/loginFB.php';
 
-                                $http.get(link, {params: $scope.data}).then(function(resp) {
+                                $http.get(link, {params: $scope.data}).then(function (resp) {
                                     if (resp.data.success == null) {
-                                        $scope.erLogin = function() {
+                                        $scope.erLogin = function () {
                                             $ionicPopup.alert({
                                                 template: 'Email invalide ou le numéro de téléphone mobile.',
                                                 okText: 'Continuer',
@@ -852,7 +936,7 @@ angular.module('starter.controllers', ['ngOpenFB'])
 
                                         $state.go("main.tips");
                                     }
-                                }, function(err) {
+                                }, function (err) {
                                     console.error('ERR', err);
                                     // err.status will contain the status code
                                 })

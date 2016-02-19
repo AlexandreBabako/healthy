@@ -93,6 +93,16 @@ angular.module('starter.routes', [])
                 }
             })
 
+            .state('main.nouseful-full', {
+                url: '/nouseful/:nousefulId/:nouseFullId',
+                views: {
+                    'main-nouseful': {
+                        templateUrl: 'templates/nouseful-full.html',
+                        controller: 'NousefulFullCtrl'
+                    }
+                }
+            })
+
             .state('search', {
                 url: '/search',
                 templateUrl: 'templates/search.html',

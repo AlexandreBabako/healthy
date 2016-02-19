@@ -6,8 +6,8 @@ angular.module('starter')
     })
 
     .constant('USER_ROLES', {
-        admin: 'admin_role',
-        public: 'public_role'
+        payed: 'payed_role',
+        free: 'free_role'
     })
 
     .constant('VIEW_LEFT_MENU' , {
